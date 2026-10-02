@@ -1,1 +1,15 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Ludo King</title><style>body{background:#0f172a;color:#fff;font-family:Arial;text-align:center} #board{width:320px;height:320px;margin:10px auto;background:#fff;display:grid;grid-template-columns:repeat(15,1fr);border:3px solid #000}.cell{border:.5px solid #ccc} #dice{font-size:60px} button{padding:12px 25px;background:#22c55e;color:#fff;border:none;border-radius:10px;font-size:18px}</style></head><body><h2>🎲 LUDO KING 🎲</h2><p id="msg">Red ki baari</p><div id="board"></div><div id="dice" onclick="roll()">🎲</div><button onclick="roll()">ROLL</button><p id="turn">Red</p><script>let c=0,cols=["Red","Green","Yellow","Blue"];let b=document.getElementById("board");for(let i=0;i<225;i++){let d=document.createElement("div");d.className="cell";let r=Math.floor(i/15),cl=i%15;if(r<6&&cl<6)d.style.background="#ffb3b3";if(r<6&&cl>8)d.style.background="#b3ffb3";if(r>8&&cl<6)d.style.background="#ffffb3";if(r>8&&cl>8)d.style.background="#b3d9ff";b.appendChild(d)}function roll(){let v=Math.floor(Math.random()*6)+1;document.getElementById("dice").innerText=v;document.getElementById("msg").innerText=cols[c]+" ne "+v+" nikala";if(v!=6)c=(c+1)%4;document.getElementById("turn").innerText=cols[c] }</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ludo King - Pawan Game</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background: linear-gradient(135deg,#ff6a00,#ee0979);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:10px}
+h1{color:white;text-shadow:2px 2px 4px #000;margin:10px;font-size:28px}
+#board{width:95vw;max-width:480px;height:95vw;max-height:480px;background:white;border:6px solid #333;border-radius:12px;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.cell{border:0.5px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:10px;position:relative}
+.home-red{background:#ff4444}
+.home-green{background:#44ff44}
+.home-yellow{background:#ff
