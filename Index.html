@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ludo King - By Pawan</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0f0f0f;color:white;font-family:Arial;text-align:center;padding:10px}
+  h1{color:#FFD700;letter-spacing:3px;margin:10px 0;text-shadow:0 0 10px gold}
+  #board{width:92vw;max-width:420px;height:92vw;max-height:420px;background:white;margin:10px auto;border:5px solid #fff;position:relative;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);box-shadow:0 0 20px rgba(255,255,255,0.2)}
+ .home-red{background:#ff4d4d;grid-area:1 / 1 / 7 / 7;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;padding:10px}
+ .home-green{background:#4dff4d;grid-area:1 / 9 / 7 / 16;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;padding:10px}
+ .home-yellow{background:#ffe44d;grid-area:9 / 1 / 16 / 7;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;padding:10px}
+ .home-blue{background:#4d94ff;grid-area:9 / 9 / 16 / 16;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;padding:10px}
+ .home-center{background:conic-gradient(from 0deg, #ff4d4d, #4dff4d, #4d94ff, #ffe44d, #ff4d4d);grid-area:7 / 7 / 9 / 9}
+ .goti{width:32%;height:32%;border-radius:50%;border:3px solid #000;margin:4%;box-shadow:0 2px 5px #000;cursor:pointer}
+ .goti.red{background:darkred}.goti.green{background:darkgreen}.goti.yellow{background:#b89c00}.goti.blue{background:darkblue}
+ .path{background:#eee;border:0.5px solid #ccc}
+  #controls{margin-top:15px}
+  #dice-btn{padding:15px 40px;font-size:22px;font-weight:bold;background:#FFD700;border:none;border-radius:10px;cursor:pointer;box-shadow:0 5px 0 #b89c00}
+  #dice-btn:active{transform:translateY(4px);box-shadow:none}
+  #result{font-size:50px;margin-top:10px;font-weight:bold}
+</style>
+</head>
+<body>
+<h1>LUDO KING</h1>
+<div id="board">
+  <div class="home-red">
+    <div class="goti red"></div><div class="goti red"></div><div class="goti red"></div><div class="goti red"></div>
+  </div>
+  <div class="home-green">
+    <div class="goti green"></div><div class="goti green"></div><div class="goti green"></div><div class="goti green"></div>
+  </div>
+  <div class="home-yellow">
+    <div class="goti yellow"></div><div class="goti yellow"></div><div class="goti yellow"></div><div class="goti yellow"></div>
+  </div>
+  <div class="home-blue">
+    <div class="goti blue"></div><div class="goti blue"></div><div class="goti blue"></div><div class="goti blue"></div>
+  </div>
+  <div class="home-center"></div>
+</div>
+<div id="controls">
+  <button id="dice-btn">ROLL DICE</button>
+  <div id="result">1</div>
+  <p id="turn" style="margin-top:8px;color:#aaa">Red's Turn</p>
+</div>
+<script>
+  const btn=document.getElementById('dice-btn');
+  const res=document.getElementById('result');
+  const turnEl=document.getElementById('turn');
+  const colors=['Red','Green','Yellow','Blue'];
+  let turn=0;
+  btn.onclick=()=>{
+    let v=Math.floor(Math.random()*6)+1;
+    res.innerText=v;
+    res.style.transform='scale(1.5)';
+    setTimeout(()=>res.style.transform='scale(1)',150);
+    if(v!=6){turn=(turn+1)%4; turnEl.innerText=colors[turn]+"'s Turn";}
+    else{turnEl.innerText=colors[turn]+" gets another chance! (6 आया)"}
+  }
+</script>
+</body>
+</html>
