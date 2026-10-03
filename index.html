@@ -1,0 +1,39 @@
+lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ludo King Game</title>
+<style>
+body{margin:0;background:#111;color:#fff;text-align:center;font-family:Arial}
+h1{color:#ffcc00}
+#board{width:90vw;max-width:400px;height:90vw;max-height:400px;background:#fff;margin:20px auto;border:5px solid gold;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr)}
+.cell{border:1px solid #eee}
+.red{background:red}.green{background:#00b300}.blue{background:#0066ff}.yellow{background:#ffeb00}
+.center{background:gold}
+button{padding:14px 28px;font-size:20px;background:gold;border:none;border-radius:10px;font-weight:bold}
+</style>
+</head>
+<body>
+<h1>🎲 LUDO KING 🎲</h1>
+<div id="board"></div>
+<br>
+<button onclick="rollDice()">ROLL DICE</button>
+<h2 id="dice">🎲 1</h2>
+<script>
+let b=document.getElementById('board');
+for(let i=0;i<225;i++){
+ let d=document.createElement('div');d.className='cell';
+ if(i<36&&i%15<6)d.classList.add('red');
+ if(i<36&&i%15>8)d.classList.add('green');
+ if(i>=189&&i%15<6)d.classList.add('blue');
+ if(i>=189&&i%15>8)d.classList.add('yellow');
+ if(i>=105&&i<=119||i%15>=6&&i%15<=8&&i>=37&&i<=187)d.classList.add('center');
+ b.appendChild(d);
+}
+function rollDice(){
+ let n=Math.floor(Math.random()*6)+1;
+ document.getElementById('dice').innerText='🎲 '+n;
+}
+</script>
+</body>
+</html>
