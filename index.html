@@ -1,1 +1,69 @@
-<!DOCTYPE html><html><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Ludo</title><style>body{background:#0f172a;color:#fff;text-align:center;font-family:sans-serif}#b{width:360px;height:360px;background:#fff;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);border:3px solid #000;margin:auto}#b div{border:.2px solid #ccc;display:flex;align-items:center;justify-content:center;position:relative}.r{background:#f88}.g{background:#8f8}.y{background:#ff8}.a{background:#88f}.t{width:20px;height:20px;border-radius:50%;border:2px solid #000;position:absolute;z-index:2;cursor:pointer;color:#fff;font-weight:bold;display:flex;align-items:center;justify-content:center}.r2{background:red}.g2{background:green}.y2{background:#c90}.b2{background:blue}</style></head><body><h3>🎲 LUDO KING</h3><div id=t>Red ki baari</div><div id=b></div><div style=background:#fff;color:#000;padding:8px;width:360px;margin:8px auto;border-radius:10px><div id=d style=width:50px;height:50px;background:#111;color:#fff;margin:auto;display:flex;align-items:center;justify-content:center;font-size:30px;border-radius:10px;cursor:pointer onclick=R()>🎲</div><button onclick=R()>ROLL</button><div id=m>6 pe goti niklegi</div></div><script>B=document.getElementById('b');P=[[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14],[8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7],[14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0],[6,0]];D=0;T=0;X=0;C=['r','g','y','b'];N=['Red','Green','Yellow','Blue'];for(r=0;r<15;r++)for(c=0;c<15;c++){e=document.createElement('div');e.id='c'+r+'-'+c;if(r<6&&c<6)e.className='r';else if(r<6&&c>8)e.className='g';else if(r>8&&c<6)e.className='y';else if(r>8&&c>8)e.className='a';B.appendChild(e)}O={};H={r:[1,1],g:[1,9],y:[9,1],b:[9,9]};C.forEach(k=>{O[k]=[];for(i=0;i<4;i++){u=document.createElement('div');u.className='t '+k+'2';u.innerText='●';u.dataset.p=-1;u.dataset.i=i;u.onclick=((K,I)=>()=>M(K,I))(k,i);let q=H[k][0]+(I>>1),w=H[k][1]+I%2;document.getElementById('c'+q+'-'+w).appendChild(u);O[k].push(u)}});function R(){if(X)return;D=Math.floor(Math.random()*6)+1;d.innerText=D;m.innerText=D==6?'6 Aaya! Goti nikalo':D+' Aaya';X=1;let k=C[T],f=O[k].some(o=>{let p=+o.dataset.p;return(p==-1&&D==6)||p>=0});if(!f)setTimeout(Q,800)}function M(k,i){if(C[T]!=k||!X)return;let o=O[k][i],p=+o.dataset.p;if(p==-1&&D!=6)return;p=p==-1?0:p+D;if(p>=52){m.innerText=N[T]+' WIN!';X=0;return}o.dataset.p=p;let z=P[p];document.getElementById('c'+z[0]+'-'+z[1]).appendChild(o);C.forEach(c2=>{if(c2==k)return;O[c2].forEach(n=>{if(+n.dataset.p==p){n.dataset.p=-1;let h=H[c2],u=h[0]+(n.dataset.i>>1),v=h[1]+n.dataset.i%2;document.getElementById('c'+u+'-'+v).appendChild(n)}})});X=0;if(D!=6)T=(T+1)%4;t.innerText=N[T]+' ki baari';d.innerText='🎲'}function Q(){if(D!=6)T=(T+1)%4;X=0;t.innerText=N[T]+' ki baari';d.innerText='🎲'}</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ludo King</title>
+<style>
+body{background:#0f172a;color:#fff;text-align:center;font-family:sans-serif;margin:0;padding:10px}
+#board{width:360px;height:360px;background:#fff;display:grid;grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(15,1fr);border:4px solid #000;margin:10px auto}
+#board div{border:.5px solid #999;position:relative}
+.red{background:#ff7777}.green{background:#77ff77}.yellow{background:#ffff77}.blue{background:#7777ff}
+.goti{width:24px;height:24px;border-radius:50%;border:2px solid #000;position:absolute;top:2px;left:2px;z-index:100;color:#fff;font-weight:bold;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.r{background:red}.g{background:green}.y{background:orange}.b{background:blue}
+#panel{background:#fff;color:#000;width:360px;margin:auto;padding:10px;border-radius:10px}
+#dice{width:60px;height:60px;background:#000;color:#fff;font-size:30px;display:flex;align-items:center;justify-content:center;margin:10px auto;border-radius:10px;cursor:pointer}
+</style>
+</head>
+<body>
+<h2>🎲 LUDO KING</h2>
+<div id="turn">Red ki baari</div>
+<div id="board"></div>
+<div id="panel">
+<div id="dice" onclick="roll()">🎲</div>
+<button onclick="roll()">ROLL</button>
+<div id="msg">6 pe goti niklegi</div>
+</div>
+<script>
+const board=document.getElementById('board');
+const path=[[6,1],[6,2],[6,3],[6,4],[6,5],[5,6],[4,6],[3,6],[2,6],[1,6],[0,6],[0,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[7,14],[8,14],[8,13],[8,12],[8,11],[8,10],[8,9],[9,8],[10,8],[11,8],[12,8],[13,8],[14,8],[14,7],[14,6],[13,6],[12,6],[11,6],[10,6],[9,6],[8,5],[8,4],[8,3],[8,2],[8,1],[8,0],[7,0],[6,0]];
+let dice=0,turn=0,canMove=false;
+const cols=['r','g','y','b'],names=['Red','Green','Yellow','Blue'];
+for(let r=0;r<15;r++){for(let c=0;c<15;c++){let d=document.createElement('div');d.id=`c${r}-${c}`;if(r<6&&c<6)d.className='red';else if(r<6&&c>8)d.className='green';else if(r>8&&c<6)d.className='yellow';else if(r>8&&c>8)d.className='blue';board.appendChild(d);}}
+let tokens={},home={r:[1,1],g:[1,10],y:[10,1],b:[10,10]};
+cols.forEach(k=>{
+tokens[k]=[];
+for(let i=0;i<4;i++){
+let t=document.createElement('div');
+t.className=`goti ${k}`;
+t.innerText=i+1;
+t.dataset.pos=-1;
+t.onclick=()=>move(k,i);
+let rr=home[k][0]+Math.floor(i/2),cc=home[k][1]+(i%2);
+document.getElementById(`c${rr}-${cc}`).appendChild(t);
+tokens[k].push(t);
+}});
+function roll(){
+if(canMove)return;
+dice=Math.floor(Math.random()*6)+1;
+document.getElementById('dice').innerText=dice;
+document.getElementById('msg').innerText=dice==6?'6 Aaya! Goti nikalo':dice+' Aaya';
+canMove=true;
+}
+function move(k,i){
+if(cols[turn]!=k||!canMove)return;
+let t=tokens[k][i];
+let p=parseInt(t.dataset.pos);
+if(p==-1&&dice!=6)return;
+if(p==-1)p=0;else p+=dice;
+if(p>=52)return;
+t.dataset.pos=p;
+document.getElementById(`c${path[p][0]}-${path[p][1]}`).appendChild(t);
+canMove=false;
+if(dice!=6)turn=(turn+1)%4;
+document.getElementById('turn').innerText=names[turn]+' ki baari';
+document.getElementById('dice').innerText='🎲';
+}
+</script>
+</body>
+</html>
