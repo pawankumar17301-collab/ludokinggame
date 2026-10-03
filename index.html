@@ -103,28 +103,95 @@ DOCTYPE html>
             board.appendChild(goti);
         });
         
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ludo King - Pawan</title>
+<style>
+body{margin:0;background:#111;color:#fff;text-align:center;font-family:sans-serif}
+#board{width:90vw;max-width:480px;height:90vw;max-height:480px;margin:20px auto;background:#fff;position:relative;border:4px solid #333;}
+.goti{width:24px;height:24px;border-radius:50%;position:absolute;border:2px solid #000;cursor:pointer;transition:all 0.3s;}
+#dice{padding:15px 35px;font-size:22px;background:#ffcc00;border:none;border-radius:10px;font-weight:bold;cursor:pointer}
+#info{margin-top:10px;font-size:18px}
+</style>
+</head>
+<body>
+<h2>LUDO KING 👑</h2>
+<div id="board"></div>
+<button id="dice">🎲 DICE ROLL</button>
+<div id="info">Current Player: Red</div>
+
 <script>
-  // Game State
-  let currentPlayer = 'r'; // 'r', 'g', 'b', 'y'
-  let currentDiceValue = 0;
+// Board Pieces Initial Position
+let pieces = [
+  {id:'r1', top:'10%', left:'10%', color:'red'},
+  {id:'r2', top:'10%', left:'25%', color:'red'},
+  {id:'g1', top:'10%', left:'70%', color:'green'},
+  {id:'g2', top:'10%', left:'85%', color:'green'},
+  {id:'y1', top:'80%', left:'10%', color:'yellow'},
+  {id:'y2', top:'80%', left:'25%', color:'yellow'},
+  {id:'b1', top:'80%', left:'70%', color:'blue'},
+  {id:'b2', top:'80%', left:'85%', color:'blue'},
+];
 
-  // Move Piece Function
-  function movePiece(pieceId, steps) {
-    let piece = pieces.find(p => p.id === pieceId);
-    if (!piece) return;
+const board = document.getElementById('board');
 
-    let elem = document.getElementById(pieceId);
-    if (elem) {
-      // Basic movement demonstration logic
-      let currentTop = parseInt(elem.style.top) || 0;
-      elem.style.top = (currentTop + (steps * 10)) + 'px';
-      console.log(`Moved ${pieceId} by ${steps} steps`);
-    }
+// Getiyon ko board par render karna - Line 96-104 wala code
+pieces.forEach(p => {
+  let goti = document.createElement('div');
+  goti.classList.add('goti');
+  goti.id = p.id;
+  goti.style.top = p.top;
+  goti.style.left = p.left;
+  goti.style.background = p.color;
+  board.appendChild(goti);
+});
+
+// Game State
+let currentPlayer = 'r'; // 'r', 'g', 'y', 'b'
+let currentDiceValue = 0;
+
+function rollDice(){
+  return Math.floor(Math.random()*6)+1;
+}
+
+// Move Piece Function
+function movePiece(pieceId, steps){
+  let piece = pieces.find(p => p.id === pieceId);
+  if (!piece) return;
+
+  let elem = document.getElementById(pieceId);
+  if (elem) {
+    // Basic movement demonstration
+    let currentTop = parseInt(elem.style.top);
+    elem.style.top = (currentTop + steps * 5) + 'px';
+    console.log(`Moved ${pieceId} by ${steps} steps`);
   }
+}
 
-  // Handle Dice Roll Click
-  document.getElementById('dice')?.addEventListener('click', function() {
-    currentDiceValue = rollDice();
-    console.log(`Rolled: ${currentDiceValue}`);
+// Handle Dice Roll Click
+document.getElementById('dice')?.addEventListener('click', () => {
+  currentDiceValue = rollDice();
+  console.log(`Rolled: ${currentDiceValue}`);
+  document.getElementById('dice').innerText = `🎲 ${currentDiceValue}`;
+  document.getElementById('info').innerText = `Player ${currentPlayer} Rolled: ${currentDiceValue}`;
+  
+  // Bari change karna
+  let players = ['r','g','y','b'];
+  let idx = players.indexOf(currentPlayer);
+  if(currentDiceValue !== 6){
+    currentPlayer = players[(idx+1)%4];
+  }
+});
+
+// Goti par click karke chalana
+document.querySelectorAll('.goti').forEach(g => {
+  g.addEventListener('click', () => {
+    movePiece(g.id, currentDiceValue);
   });
+});
 </script>
+</body>
+</html>
