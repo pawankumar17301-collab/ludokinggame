@@ -103,3 +103,28 @@ DOCTYPE html>
             board.appendChild(goti);
         });
         
+<script>
+  // Game State
+  let currentPlayer = 'r'; // 'r', 'g', 'b', 'y'
+  let currentDiceValue = 0;
+
+  // Move Piece Function
+  function movePiece(pieceId, steps) {
+    let piece = pieces.find(p => p.id === pieceId);
+    if (!piece) return;
+
+    let elem = document.getElementById(pieceId);
+    if (elem) {
+      // Basic movement demonstration logic
+      let currentTop = parseInt(elem.style.top) || 0;
+      elem.style.top = (currentTop + (steps * 10)) + 'px';
+      console.log(`Moved ${pieceId} by ${steps} steps`);
+    }
+  }
+
+  // Handle Dice Roll Click
+  document.getElementById('dice')?.addEventListener('click', function() {
+    currentDiceValue = rollDice();
+    console.log(`Rolled: ${currentDiceValue}`);
+  });
+</script>
